@@ -8,13 +8,14 @@ GRANT ALL PRIVILEGES ON hospApoitment.* TO 'hospApoitment'@'localhost';
 
 create table accounts (
 	accountId int(20) NOT NULL AUTO_INCREMENT,
-	accountEmail varchar(20) NOT NULL,
+	accountEmail varchar(70) NOT NULL,
 	accountPassword varchar(50) NOT NULL,
     accountNome varchar(100) NOT NULL,
     accountCPF varchar(15) NOT NULL,
     accountTel varchar(15) NOT NULL,
     accountDate varchar(10) NOT NULL,
-    accountRua varchar(10) NOT NULL,
+    accountRua varchar(30) NOT NULL,
+    accountBairro varchar(30) NOT NULL,
     accountNumero varchar(8) NOT NULL,
     accountCidade varchar(121) NOT NULL,
     accountUF varchar(8) NOT NULL,
@@ -30,8 +31,22 @@ create table accountDoctor(
     primary key (doctorCRM)
 );
 
+
+create table specialty(
+	specialtyId int(3) NOT NULL,
+	specialtyNome varchar(100) NOT NULL,
+    primary key (specialtyId)
+);
+
+create table specialtyDoctor(
+	doctorCRM int(8) references accountDoctor(accountId),
+	specialtyId int(8) references specialty(specialtyId),
+    primary key (doctorCRM)
+);
+
 create table apointments(
-	doctorCRM int(8) references accountDoctor(doctorCRM),
+	doctorCRM int(8) references specialtyDoctor(doctorCRM),
+    specialtyId int(8) references specialtyDoctor(specialtyId),
     accountId int(20) references account(accountId),
     apointmenStatus int(1) not null,
     apointmenDateTime Datetime not null,

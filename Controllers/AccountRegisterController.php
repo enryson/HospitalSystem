@@ -83,7 +83,7 @@ if (isset($_POST['add'])) {
 
 if (isset($_POST['update'])) {
 	//verifica se existem as rowns na nossa tabela
-	$accountId = $_SESSION['accountId'];
+	$accountId = mysqli_real_escape_string($mysqli, $_POST['accountId']);
 	$accountEmail = mysqli_real_escape_string($mysqli, $_POST['email']);
 	$accountPassword = mysqli_real_escape_string($mysqli, $_POST['password']);
 	$accountNome = mysqli_real_escape_string($mysqli, $_POST['nome']);
@@ -97,6 +97,8 @@ if (isset($_POST['update'])) {
 	$accountCidade = mysqli_real_escape_string($mysqli, $_POST['cidade']);
 	$accountUF = mysqli_real_escape_string($mysqli, $_POST['uf']);
 	$accountComplemento = mysqli_real_escape_string($mysqli, $_POST['complemento']);
+	($_SESSION['accountRole'] == 1 ?  $accountRole = mysqli_real_escape_string($mysqli, $_POST['accountRole']) : '');
+
 	// verificando se deixamos algo em branco
 	if (empty($accountEmail) || empty($accountPassword)) {
 		//bla bla bla.... verifica se deixamos algo em branco
@@ -111,26 +113,53 @@ if (isset($_POST['update'])) {
 	} else {
 		//$accountId = mysqli_real_escape_string($mysqli, $_SESSION(['accountId']));
 		// agora sim! ele captura os dados das variaveis e as atualiza no banco de dados.
-		$result = mysqli_query($mysqli, "UPDATE accounts SET 
-			accountEmail = '$accountEmail',
-			accountPassword=(select password('$accountPassword')),
-			accountNome = '$accountNome',
-			accountCPF = '$accountCPF',
-			accountTel = '$accountTel',
-			accountDate = '$accountDate',
-			accountCEP = '$accountCEP',
-			accountRua = '$accountRua',
-			accountNumero = '$accountNumero',
-			accountBairro = '$accountBairro',
-			accountCidade = '$accountCidade',
-			accountUF = '$accountUF',
-			accountComplemento = '$accountComplemento'
-			WHERE accountId=$accountId "
-		);
+		if ($_SESSION['accountRole'] == 1){
+			$result = mysqli_query($mysqli, "UPDATE accounts SET 
+				accountEmail = '$accountEmail',
+				accountPassword=(select password('$accountPassword')),
+				accountNome = '$accountNome',
+				accountCPF = '$accountCPF',
+				accountTel = '$accountTel',
+				accountDate = '$accountDate',
+				accountCEP = '$accountCEP',
+				accountRua = '$accountRua',
+				accountNumero = '$accountNumero',
+				accountBairro = '$accountBairro',
+				accountCidade = '$accountCidade',
+				accountUF = '$accountUF',
+				accountRole = '$accountRole',
+				accountComplemento = '$accountComplemento'
+				WHERE accountId=$accountId "			
+			);
+
+			header("Location: /Views/AdminAccountDetailsView.php");
+
+			
+		} else{
+			$result = mysqli_query($mysqli, "UPDATE accounts SET 
+				accountEmail = '$accountEmail',
+				accountPassword=(select password('$accountPassword')),
+				accountNome = '$accountNome',
+				accountCPF = '$accountCPF',
+				accountTel = '$accountTel',
+				accountDate = '$accountDate',
+				accountCEP = '$accountCEP',
+				accountRua = '$accountRua',
+				accountNumero = '$accountNumero',
+				accountBairro = '$accountBairro',
+				accountCidade = '$accountCidade',
+				accountUF = '$accountUF',
+				accountComplemento = '$accountComplemento'
+				WHERE accountId=$accountId "			
+			);
+
+			header("Location: /Views/Index.php");
+		}
+		
 		//echo 'Usuario cadastrado com sucesso!';
 		//redireciona para a index
-		$_SESSION['accountNome'] = $accountNome;
+		//$_SESSION['accountNome'] = $accountNome;
 
-		header("Location: /Views/Index.php");
+		
 	}
 }

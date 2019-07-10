@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/Sao_Paulo');
+
 
 $databaseHost = 'localhost';
 $databaseName = 'hospApoitment';
@@ -12,7 +14,6 @@ $databaseName);
 
 if ($mysqli->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
-
+}
 
 ?>
