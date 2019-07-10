@@ -45,7 +45,7 @@ create table doctor(
 );
 
 create table specialty(
-	specialtyId int(3) NOT NULL,
+	specialtyId int(3) NOT NULL AUTO_INCREMENT,
 	specialtyNome varchar(100) NOT NULL,
     primary key (specialtyId)
 );
