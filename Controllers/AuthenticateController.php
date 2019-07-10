@@ -1,16 +1,12 @@
 <?php
-//include_once("../Config/Config.php");
 require_once("../Model/Account.php");
 
 session_start();
 
+
 if (!empty($_POST)) {
     if (isset($_POST['email']) && isset($_POST['password'])) {
 
-        //$accountEmail = mysqli_real_escape_string($mysqli, $_POST['email']);
-        //$accountPassword = mysqli_real_escape_string($mysqli, $_POST['password']);
-
-        //if (filter_var($accountEmail, FILTER_VALIDATE_EMAIL)) {
         if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 
             $account = new Account();
@@ -19,10 +15,6 @@ if (!empty($_POST)) {
             $row = $account->_row;
             $rs = $account->_result;
 
-
-            //$result = mysqli_query($mysqli, "SELECT * FROM accounts WHERE accountEmail='$accountEmail' AND accountPassword=(select password('$accountPassword'))");
-
-            //$user = mysqli_fetch_array($result);
             $user = mysqli_fetch_array($rs);
 
             if (isset($user)) {

@@ -3,27 +3,27 @@ require_once("../Model/Account.php");
 
 function AccountList()
 {
-    global $row;
-    global $rs;
+    global $rowAccount;
+    global $rsAccount;
 
     $account = new Account();
 
-    $account->getAccount("SELECT * FROM accounts");
+    $account->getAccount("SELECT * FROM accounts INNER JOIN role ON accounts.accountRole = role.accountRole");
 
-    $row = $account->_row;
-    $rs = $account->_result;
+    $rowAccount = $account->_row;
+    $rsAccount = $account->_result;
 }
 
 function AccountInsert()
 {
-    global $row;
-    global $rs;
+    global $rowAccount;
+    global $rsAccount;
 
     $account = new Account();
 
     $account->getAccount("SELECT * FROM accounts");
-    $row = $account->_row;
-    $rs = $account->_result;
+    $rowAccount= $account->_row;
+    $rsAccount = $account->_result;
 
 
     if (isset($_POST['add'])) {
@@ -63,16 +63,16 @@ function AccountInsert()
 
 function AccountUpdate()
 {
-    global $row;
-    global $rs;
+    global $rowAccount;
+    global $rsAccount;
 
 
     $account = new Account();
 
     $account->getAccount("SELECT * FROM accounts WHERE accountId=" . $_GET['id']);
 
-    $row = $account->_row;
-    $rs = $account->_result;
+    $rowAccount= $account->_row;
+    $rsAccount = $account->_result;
 
     $accountId =  $_GET['id'];
 
@@ -92,8 +92,8 @@ function AccountUpdate()
         $accountCidade = $_POST['cidade'];
         $accountUF = $_POST['uf'];
         $accountComplemento = $_POST['complemento'];
-
-        echo $accountId;
+        $accountRole = $_POST['accountRole'];
+        
 
         $account->updateAccount(
             $accountId,
@@ -109,7 +109,8 @@ function AccountUpdate()
             $accountBairro,
             $accountCidade,
             $accountUF,
-            $accountComplemento
+            $accountComplemento,
+            $accountRole
         );
         header("Location: /Views/AdminAccountDetailsView.php");
     }
@@ -119,4 +120,5 @@ function AccountUpdate()
         header("Location: /Views/AdminAccountDetailsView.php");
     }
 }
+
 

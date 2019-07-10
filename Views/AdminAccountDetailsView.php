@@ -40,13 +40,13 @@ if (isset($_SESSION['accountId'])) {
 
 
 					<?php
-					while ($row = mysqli_fetch_array($rs)) {
+					while ($rowAccount = mysqli_fetch_array($rsAccount)) {
 						echo "<tr>";
-						echo "<td>" . $row['accountNome'] . "</td>";
-						echo "<td>" . $row['accountCPF'] . "</td>";
-						echo "<td>" . $row['accountEmail'] . "</td>";
-						echo "<td>" . $row['accountRole'] . "</td>";
-						echo "<td><a href=\"AccountDetailsView.php?id=$row[accountId]\">Edit</a></td>";
+						echo "<td>" . $rowAccount['accountNome'] . "</td>";
+						echo "<td>" . $rowAccount['accountCPF'] . "</td>";
+						echo "<td>" . $rowAccount['accountEmail'] . "</td>";
+						echo "<td>" . $rowAccount['roleName'] . "</td>";
+						echo "<td><a href=\"AccountDetailsView.php?id=$rowAccount[accountId]\">Edit</a></td>";
 						echo "</tr>";
 					}
 					?>

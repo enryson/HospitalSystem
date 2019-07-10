@@ -71,7 +71,6 @@ class Account
             "3")
             ';
 
-        echo $query;
 
         $database = new DatabaseConnection();
 
@@ -95,7 +94,8 @@ class Account
         $accountBairro,
         $accountCidade,
         $accountUF,
-        $accountComplemento
+        $accountComplemento,
+        $accountRole
     ) {
 
 
@@ -113,8 +113,10 @@ class Account
             accountCidade = "' . $accountCidade . '",
             accountUF = "' . $accountUF . '",
             accountComplemento = "' . $accountComplemento . '"
+            ,accountRole = "' . $accountRole . '"
             WHERE accountId= "' . $accountId . '"
         ';
+
 
         $database = new DatabaseConnection();
 
@@ -153,3 +155,4 @@ class Account
         $database->query($query);
     }
 }
+?>
