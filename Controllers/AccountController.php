@@ -1,7 +1,7 @@
 <?php
 require_once("../Model/Account.php");
 
-function AccountList()
+function accountList()
 {
     global $rowAccount;
     global $rsAccount;
@@ -14,7 +14,7 @@ function AccountList()
     $rsAccount = $account->_result;
 }
 
-function AccountInsert()
+function accountInsert()
 {
     global $rowAccount;
     global $rsAccount;
@@ -22,7 +22,7 @@ function AccountInsert()
     $account = new Account();
 
     $account->getAccount("SELECT * FROM accounts");
-    $rowAccount= $account->_row;
+    $rowAccount = $account->_row;
     $rsAccount = $account->_result;
 
 
@@ -40,7 +40,7 @@ function AccountInsert()
         $accountCidade = $_POST['cidade'];
         $accountUF = $_POST['uf'];
         $accountComplemento = $_POST['complemento'];
-        
+
         $account->setAccount(
             $accountEmail,
             $accountPassword,
@@ -57,11 +57,10 @@ function AccountInsert()
             $accountComplemento
         );
         header("Location: /Views/Index.php");
-        
     }
 }
 
-function AccountUpdate()
+function accountUpdate()
 {
     global $rowAccount;
     global $rsAccount;
@@ -71,14 +70,14 @@ function AccountUpdate()
 
     $account->getAccount("SELECT * FROM accounts WHERE accountId=" . $_GET['id']);
 
-    $rowAccount= $account->_row;
+    $rowAccount = $account->_row;
     $rsAccount = $account->_result;
 
     $accountId =  $_GET['id'];
 
 
     if (isset($_POST['update'])) {
-
+        if (isset($_POST['accountRole'])) { }
         $accountEmail = $_POST['email'];
         $accountPassword = $_POST['password'];
         $accountNome = $_POST['nome'];
@@ -92,8 +91,9 @@ function AccountUpdate()
         $accountCidade = $_POST['cidade'];
         $accountUF = $_POST['uf'];
         $accountComplemento = $_POST['complemento'];
-        $accountRole = $_POST['accountRole'];
-        
+
+        isset($_POST['accountRole']) ?  $accountRole = $_POST['accountRole'] : $accountRole = 4  ;
+
 
         $account->updateAccount(
             $accountId,
@@ -112,7 +112,8 @@ function AccountUpdate()
             $accountComplemento,
             $accountRole
         );
-        header("Location: /Views/AdminAccountDetailsView.php");
+        isset($_POST['accountRole']) ? header("Location: /Views/AdminAccountDetailsView.php") : header("Location: /Views/AccountDetailsView.php")  ;
+        //header("Location: /Views/AdminAccountDetailsView.php");
     }
 
     if (isset($_POST['delete'])) {
@@ -120,5 +121,3 @@ function AccountUpdate()
         header("Location: /Views/AdminAccountDetailsView.php");
     }
 }
-
-
