@@ -68,7 +68,7 @@ class Account
             "' . $accountCidade . '",
             "' . $accountUF . '",
             "' . $accountComplemento . '",
-            "3")
+            "4")
             ';
 
 
@@ -98,10 +98,9 @@ class Account
         $accountRole
     ) {
 
-
         $query = 'UPDATE accounts SET 
             accountEmail = "' . $accountEmail . '",
-            accountPassword = (select password("' . $accountPassword . ' ")),
+            accountPassword = (select password("' . $accountPassword . '")),
             accountNome = "' . $accountNome . '",
             accountCPF = "' . $accountCPF . '",
             accountTel ="' . $accountTel . '",
@@ -116,7 +115,6 @@ class Account
             ,accountRole = "' . $accountRole . '"
             WHERE accountId= "' . $accountId . '"
         ';
-
 
         $database = new DatabaseConnection();
 

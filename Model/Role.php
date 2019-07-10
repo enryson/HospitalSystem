@@ -1,7 +1,7 @@
 <?php
 require_once("DatabaseConnection.php");
 
-class role
+class Role
 {
     public function getRole($query)
     {

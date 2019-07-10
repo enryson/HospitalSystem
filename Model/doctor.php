@@ -11,9 +11,8 @@ class Doctor
 
     public function setDoctor($accountId,$doctorCRM ) {
 
-        
-        $query = 'INSERT INTO doctor( accountId, doctorCRM ) 
-            VALUES  (
+        //echo $accountId,$doctorCRM;
+        $query = 'INSERT INTO doctor( accountId, doctorCRM ) VALUES (
             "' . $accountId . '",
             "' . $doctorCRM . '")
             ';
@@ -27,26 +26,7 @@ class Doctor
     }
 
 
-    public function updateDoctor ( $accountId, $doctorCRM) {
-
-
-        $query = 'UPDATE doctor SET 
-            accountEmail = "' . $accountId . '",
-            WHERE doctorCRM= "' . $doctorCRM . '"
-        ';
-
-        $database = new DatabaseConnection();
-
-        $database->connection();
-
-        $database->query($query);
-
-        $this->_row = @mysqli_affected_rows($database->result);
-
-        $this->_result = $database->result;
-    }
-
-
+    
     public function getDoctor($query)
     {
 
