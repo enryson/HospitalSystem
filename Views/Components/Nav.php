@@ -26,7 +26,7 @@
                     </button>
                     <div class="dropdown-menu">
                     ' . ($_SESSION['accountRole'] == 1 ? '<a class="dropdown-item" href="/Views/AdminAccountDetailsView.php">Admin</a>' : "") . '
-                    ' . ($_SESSION['accountRole'] == 1 & 2 ? '<a class="dropdown-item" href="/Views/AdminAccountDetailsView.php">Admin</a>' : "") . ' 
+                    ' . ($_SESSION['accountRole'] == 1 ? '<a class="dropdown-item" href="/Views/SpecialtyRegister.php">Cadastro Especialidade</a>' : "") . ' 
                         <a class="dropdown-item" href="/Views/AccountDetailsView.php?id=' . $_SESSION['accountId'] . '">Meus Dados</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/Controllers/LogoutController.php">Sair</a>
