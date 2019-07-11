@@ -8,8 +8,8 @@ if (isset($_GET['id'])) {
     if ($_SESSION['accountRole'] == 1) {
         require_once("../Controllers/RoleController.php");
         require_once("../Controllers/DoctorController.php");
-        doctorInsert($accountId);
-        roleList();
+
+
     }
 
     accountUpdate();
@@ -35,7 +35,6 @@ include("Components/Nav.php");
                     <?php while ($rowAccount = mysqli_fetch_array($rsAccount)) { ?>
                         <div class="col-md-4">
                             <h4 class="mb-3">Dados Pessoais</h4>
-
                             <label for="Email :"></label> Email :<br>
                             <input class="form-control" id="email" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?php echo $rowAccount['accountEmail'] ?>" />
                             <br>
@@ -79,76 +78,24 @@ include("Components/Nav.php");
                             <input class="form-control" id="complemento" type="text" name="complemento" value="<?php echo $rowAccount['accountComplemento'] ?>" />
                             <br>
                             <br>
+                            <?php 
+                            
+                            include("DoctorAccount.php"); ?>
+
                             <?php
-                            //-------- Check Account Role -----///
-                            if ($_SESSION['accountRole'] == 1) {
-
-                                echo '</div>
-                                
-                                <div class="col-md-4">
-                                <h4 class="mb-3" >Dados Administrativos</h4>
-                                ';
-
-                                //-------- Account Role -----///
-                                echo '<select id="accountRole" name="accountRole">';
-                                while ($rowRole = mysqli_fetch_array($rsRole)) {
-                                    echo '<option ' . ($rowAccount['accountRole'] == $rowRole['accountRole'] ? " selected" : "") . ' value="' . $rowRole['accountRole'] . '">' . $rowRole['roleName'] . '</option>';
-                                }
-                                echo '</select>';
-
-
-                                //-------- Doctor Insert -----///
-                                echo '
-                                <div id="doctor" class="" ' . ($rowAccount['accountRole'] == 3 ? 'style="display: "";' : 'style="display: none;"') . ' >
-                                <br>
-                                CRM :<br>
-                                <input class="form-control" id="doctorCRM" type="text" name="doctorCRM" value="
-                                ';
-                                while ($rowDoctor = mysqli_fetch_array($rsDoctor)) {
-                                    echo $rowDoctor['doctorCRM'];
-                                }
-                                echo '
-                                " />
-                                    <br>
-                                </div>
-                                
-                                ';
-
-                                //-------- Doctor Speciality -----///
-                                echo '
-                                <div id="doctor" class="" ' . ($rowAccount['accountRole'] == 3 ? 'style="display: "";' : 'style="display: none;"') . ' >
-                                <br>
-                                CRM :<br>
-                                <input class="form-control" id="doctorCRM" type="text" name="doctorCRM" value="
-                                ';
-                                while ($rowDoctor = mysqli_fetch_array($rsDoctor)) {
-                                    echo $rowDoctor['doctorCRM'];
-                                }
-                                echo '
-                                " />
-                                    <br>
-                                </div>
-                                
-                                ';
-
-                                
-
-                            }
-
-                            ?>
-
-                        <?php } ?>
+                        }
+                        ?>
                         <br>
-                        <br>
+                        <input class="btn btn-primary" id="update" type="submit" name="update" value="Atualizar">
+                        <input class="btn btn-danger" id="delete" type="submit" name="delete" value="Remover">
                     </div>
                 </div>
-
-                <input class="btn btn-primary" id="update" type="submit" name="update" value="Atualizar">
-                <input class="btn btn-danger" id="delete" type="submit" name="delete" value="Remover">
             </form>
+            
         </div>
     </div>
 </main>
+
 <?php include("Components/Scripts.php"); ?>
 <script type="text/javascript">
     (function() {

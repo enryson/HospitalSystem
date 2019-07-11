@@ -37,12 +37,14 @@ create table accounts (
     accountRole int(1) references role(accountRole),
 	primary key (accountId)
 );
+ALTER TABLE accounts ADD UNIQUE INDEX(accountEmail, accountCPF);
 
 create table doctor(
 	accountId int(20) references account(accountId),
 	doctorCRM int(8) NOT NULL,
     primary key (doctorCRM)
 );
+ALTER TABLE doctor ADD UNIQUE INDEX(accountId,doctorCRM);
 
 create table specialty(
 	specialtyId int(3) NOT NULL AUTO_INCREMENT,
@@ -52,9 +54,10 @@ create table specialty(
 
 create table specialtyDoctor(
 	doctorCRM int(8) references accountDoctor(accountId),
-	specialtyId int(8) references specialty(specialtyId),
-    primary key (doctorCRM)
+	specialtyId int(8) references specialty(specialtyId)
 );
+
+ALTER TABLE specialtyDoctor ADD UNIQUE INDEX(doctorCRM, specialtyId);
 
 create table apointments(
 	doctorCRM int(8) references specialtyDoctor(doctorCRM),
@@ -64,3 +67,5 @@ create table apointments(
     apointmenDateTime Datetime not null,
     apointmentDetails varchar(140)
 );
+
+ALTER TABLE apointments ADD UNIQUE INDEX(doctorCRM, specialtyId,accountId,apointmenDateTime);

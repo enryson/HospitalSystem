@@ -8,7 +8,7 @@ if (isset($_SESSION['accountId'])) {
 		$accountId = $_SESSION['accountId'];
 		require_once("../Controllers/AccountController.php");
 		//AccountController('get');
-		AccountList();
+		accountList();
 	}
 } else {
 	header("Location: /Views/Index.php");
@@ -29,6 +29,7 @@ if (isset($_SESSION['accountId'])) {
 			<table class="table table-dark table-striped">
 				<thead>
 					<tr>
+						<td>ID</td>
 						<td>Nome</td>
 						<td>CPF</td>
 						<td>Email</td>
@@ -37,11 +38,10 @@ if (isset($_SESSION['accountId'])) {
 					</tr>
 				</thead>
 				<tbody>
-
-
 					<?php
 					while ($rowAccount = mysqli_fetch_array($rsAccount)) {
 						echo "<tr>";
+						echo "<td>" . $rowAccount['accountId'] . "</td>";
 						echo "<td>" . $rowAccount['accountNome'] . "</td>";
 						echo "<td>" . $rowAccount['accountCPF'] . "</td>";
 						echo "<td>" . $rowAccount['accountEmail'] . "</td>";

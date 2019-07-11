@@ -14,6 +14,7 @@ class Specialty
         $database = new DatabaseConnection();
 
         $database->connection();
+        //echo $query;
 
         $database->query($query);
     }

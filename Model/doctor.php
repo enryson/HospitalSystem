@@ -9,15 +9,15 @@ class Doctor
     private $doctorCRM;
 
 
-    public function setDoctor($accountId,$doctorCRM ) {
+    public function setDoctor($accountId, $doctorCRM)
+    {
 
         //echo $accountId,$doctorCRM;
         $query = 'INSERT INTO doctor( accountId, doctorCRM ) VALUES (
             "' . $accountId . '",
             "' . $doctorCRM . '")
             ';
-
-
+            
         $database = new DatabaseConnection();
 
         $database->connection();
@@ -26,7 +26,7 @@ class Doctor
     }
 
 
-    
+
     public function getDoctor($query)
     {
 
@@ -52,4 +52,3 @@ class Doctor
         $database->query($query);
     }
 }
-?>
