@@ -15,6 +15,22 @@ function doctorList()
     $rsDoctor = $doctor->_result;
 }
 
+function doctorDetailsList()
+{
+    global $rowDoctor;
+    global $rsDoctor;
+
+    $doctor = new Doctor();
+
+    $doctor->getDoctor('SELECT * FROM doctor 
+                        inner join accounts on doctor.accountId = accounts.accountId 
+                        inner join specialtyDoctor on doctor.doctorCRM = specialtyDoctor.doctorCRM 
+                        inner join specialty on specialtyDoctor.specialtyId = specialty.specialtyId');
+
+    $rowDoctor = $doctor->_row;
+    $rsDoctor = $doctor->_result;
+}
+
 function doctorInsert($id)
 {
 

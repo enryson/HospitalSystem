@@ -26,7 +26,8 @@
                     </button>
                     <div class="dropdown-menu">
                     ' . ($_SESSION['accountRole'] == 1 || $_SESSION['accountRole'] == 2 ? '<a class="dropdown-item" href="/Views/AdminAccountDetailsView.php">Admin</a>' : "") . '
-                    ' . ($_SESSION['accountRole'] == 1 || $_SESSION['accountRole'] == 2 ? '<a class="dropdown-item" href="/Views/SpecialtyRegister.php">Cadastro Especialidade</a>' : "") . ' 
+                    ' . ($_SESSION['accountRole'] == 1 || $_SESSION['accountRole'] == 2 ? '<a class="dropdown-item" href="/Views/SpecialtyRegister.php">Cadastro Especialidade</a>' : "") . '
+                    ' . ($_SESSION['accountRole'] == 1 || $_SESSION['accountRole'] == 4 ? '<a class="dropdown-item" href="/Views/AccountSchedule.php">Agendar</a>' : "") . ' 
                     ' . ($_SESSION['accountRole'] == 1 || $_SESSION['accountRole'] == 2 || $_SESSION['accountRole'] == 3 ? '<a class="dropdown-item" href="/Views/DoctorSchedule.php">Cadastro Agenda</a>' : "") . ' 
                         <a class="dropdown-item" href="/Views/AccountDetailsView.php?id=' . $_SESSION['accountId'] . '">Meus Dados</a>
                         <div class="dropdown-divider"></div>

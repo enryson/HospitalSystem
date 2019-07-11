@@ -8,7 +8,49 @@ function doctorApoitmentList($id)
 
     $apointment = new Apointment();
 
-    $apointment->getApointment("SELECT * FROM apointment inner join specialty on apointment.specialtyId = specialty.specialtyId WHERE doctorCRM='$id' ORDER BY apointment.apointmenDateTime DESC" );
+    $apointment->getApointment("SELECT * FROM apointment 
+                                    inner join specialty on apointment.specialtyId = specialty.specialtyId 
+                                    WHERE doctorCRM='$id' ORDER BY apointment.apointmenDateTime DESC");
+
+    $rowApointment = $apointment->_row;
+    $rsApointment = $apointment->_result;
+}
+
+function specialityApoitmentList()
+{
+    global $rowApointment;
+    global $rsApointment;
+
+    $apointment = new Apointment();
+
+
+    if (isset($_POST['searchApoitment'])) {
+        $specialtyId = $_POST['specialtyId'];
+
+        $apointment->getApointment("SELECT * FROM apointment 
+                                    inner join specialty on apointment.specialtyId = specialty.specialtyId 
+                                    inner join doctor on doctor.doctorCRM = apointment.doctorCRM 
+                                    inner join accounts on doctor.accountId = accounts.accountId  
+                                    WHERE apointment.specialtyId='$specialtyId' ORDER BY apointment.apointmenDateTime DESC");
+
+        $rowApointment = $apointment->_row;
+        $rsApointment = $apointment->_result;
+    }
+}
+
+
+function AccountApoitmentList($id)
+{
+    global $rowApointment;
+    global $rsApointment;
+
+    $apointment = new Apointment();
+
+    $apointment->getApointment("SELECT * FROM apointment 
+                                    inner join specialty on apointment.specialtyId = specialty.specialtyId
+                                    inner join doctor on apointment.doctorCRM = doctor.doctorCRM
+                                    inner join accounts on doctor.accountId = accounts.accountId
+                                    WHERE accountId='$id' ORDER BY apointment.apointmenDateTime DESC");
 
     $rowApointment = $apointment->_row;
     $rsApointment = $apointment->_result;
@@ -16,7 +58,7 @@ function doctorApoitmentList($id)
 
 function apointmentInsert()
 {
-    
+
     global $rowApointment;
     global $rsApointment;
 
@@ -39,11 +81,11 @@ function apointmentInsert()
         $apointmentDetails = $_POST['apointmentDetails'];
 
         $apointment->setApointment(
-            $doctorCRM, 
-            $specialtyId, 
-            $accountId, 
-            $apointmenStatus, 
-            $apointmenDateTime, 
+            $doctorCRM,
+            $specialtyId,
+            $accountId,
+            $apointmenStatus,
+            $apointmenDateTime,
             $apointmentDetails
         );
         header("Location: /Views/DoctorSchedule.php");
@@ -52,42 +94,34 @@ function apointmentInsert()
 
 function apointmentUpdate()
 {
-    global $rowApointment;
-    global $rsApointment;
-
     $apointment = new Apointment();
-
-    $apointment->getApointment("SELECT * FROM apointment WHERE apointmentId=" . $_GET['id']);
-
-    $rowApointment = $apointment->_row;
-    $rsApointment = $apointment->_result;
-
-    $apointmentId =  $_GET['id'];
 
 
     if (isset($_POST['update'])) {
+        $accountId =  $_POST['id'];
         $doctorCRM = $_POST['doctorCRM'];
         $specialtyId = $_POST['specialtyId'];
         $accountId = $_POST['accountId'];
-        $apointmenStatus = $_POST['apointmenStatus'];
+        $apointmenStatus = 1;
         $apointmenDateTime = $_POST['apointmenDateTime'];
-        $apointmentDetails = $_POST['apointmentId'];
+        $apointmentDetails = $_POST['apointmentDetails'];
+        $apointmentId = $_POST['apointmentId'];
 
         $apointment->updateApointment(
-            $doctorCRM, 
-            $specialtyId, 
-            $accountId, 
-            $apointmenStatus, 
-            $apointmenDateTime, 
+            $doctorCRM,
+            $specialtyId,
+            $accountId,
+            $apointmenStatus,
+            $apointmenDateTime,
             $apointmentDetails,
             $apointmentId
         );
         //isset($_POST['accountRole']) ? header("Location: /Views/AdminAccountDetailsView.php") : header("Location: /Views/AccountDetailsView.php")  ;
-        header("Location: /Views/AdminAccountDetailsView.php");
+        header("Location: /Views/AccountSchedule.php");
     }
 
     if (isset($_POST['delete'])) {
-        $apointment->deleteApointment($_GET['id']);
-        header("Location: /Views/AdminAccountDetailsView.php");
+        $apointment->deleteApointment($_POST['apointmentId']);
+        header("Location: /Views/DoctorSchedule.php");
     }
 }

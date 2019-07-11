@@ -39,7 +39,7 @@ class Apointment
 
     public function updateApointment($doctorCRM, $specialtyId, $accountId, $apointmenStatus, $apointmenDateTime, $apointmentDetails,$apointmentId)
     {
-        $query = 'UPDATE apointment SET (
+        $query = 'UPDATE apointment SET 
             doctorCRM = "' . $doctorCRM . '",
             specialtyId = "' . $specialtyId . '",
             accountId = "' . $accountId . '",
@@ -50,7 +50,7 @@ class Apointment
             ';
             
         $database = new DatabaseConnection();
-
+        echo $query;
         $database->connection();
 
         $database->query($query);
@@ -66,7 +66,7 @@ class Apointment
         $database->connection();
 
         $database->query($query);
-
+        
         $this->_row = @mysqli_num_rows($database->result);
 
         $this->_result = $database->result;
@@ -77,7 +77,7 @@ class Apointment
         $database = new DatabaseConnection();
 
         $query = 'DELETE FROM apointment WHERE apointmentId="' . $id . '"';
-
+        echo $query;
         $database->connection();
 
         $database->query($query);

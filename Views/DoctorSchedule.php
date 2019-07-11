@@ -15,6 +15,8 @@ if (isset($_SESSION['accountId'])) {
 
 		apointmentInsert();
 
+		apointmentUpdate();
+
 		while ($rowDoctor = mysqli_fetch_array($rsDoctor)) {
 			getspecialtyDoctor($rowDoctor['doctorCRM']);
 			$_SESSION['doctorCRM'] = $rowDoctor['doctorCRM'];
@@ -84,13 +86,21 @@ include("Components/Nav.php");
 			<tbody>
 				<?php
 				while ($rowApointment = mysqli_fetch_array($rsApointment)) {
+					$apointmenStatus = $rowApointment['apointmenStatus'];
+					($apointmenStatus=0? $apointmenStatus = 'Ocupado' : $apointmenStatus = 'Livre' );
 					echo "<tr>";
 					echo "<td>" . $rowApointment['apointmentId'] . "</td>";
 					echo "<td>" . $rowApointment['accountId'] . "</td>";
-					echo "<td>" . $rowApointment['apointmenStatus'] . "</td>";
+					//echo "<td>" . $rowApointment['apointmenStatus'] . "</td>";
+					echo "<td>" . $apointmenStatus . "</td>";
 					echo "<td>" . $rowApointment['apointmenDateTime'] . "</td>";
 					echo "<td>" . $rowApointment['specialtyNome'] . "</td>";
-					echo "<td><a href=\"DoctorSchedule.php?id=$rowApointment[apointmentId]\">Remover</a></td>";
+					echo '<td>
+							<form  method="post">
+								<input type="hidden" name="apointmentId" value="' . $rowApointment['apointmentId'] . '" />
+								<input class="btn btn-warning" id="delete" name="delete" type="submit" value="Delete" />
+							</form>
+						</td>';
 					echo "</tr>";
 				}
 				?>
@@ -100,6 +110,8 @@ include("Components/Nav.php");
 
 
 </main>
+
+
 <script type="text/javascript">
 	$(document).ready(function(e) {
 		$(function() {
