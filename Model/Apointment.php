@@ -29,7 +29,7 @@ class Apointment
             "' . $apointmenDateTime . '",
             "' . $apointmentDetails . '")
             ';
-            echo $query;
+         
         $database = new DatabaseConnection();
 
         $database->connection();

@@ -1,14 +1,14 @@
 <?php
 require_once("../Model/Apointment.php");
 
-function apoitmentList()
+function doctorApoitmentList($id)
 {
     global $rowApointment;
     global $rsApointment;
 
     $apointment = new Apointment();
 
-    $apointment->getApointment("SELECT * FROM apointment");
+    $apointment->getApointment("SELECT * FROM apointment inner join specialty on apointment.specialtyId = specialty.specialtyId WHERE doctorCRM='$id' ORDER BY apointment.apointmenDateTime DESC" );
 
     $rowApointment = $apointment->_row;
     $rsApointment = $apointment->_result;
@@ -28,10 +28,10 @@ function apointmentInsert()
     $rsApointment = $apointment->_result;
 
 
-    $doctorCRM = $_SESSION['doctorCRM'];
-    
+
     if (isset($_POST['addApoitment'])) {
 
+        $doctorCRM = $_SESSION['doctorCRM'];
         $specialtyId = $_POST['specialtyId'];
         $accountId = $_POST['accountId'];
         $apointmenStatus = $_POST['apointmenStatus'];
@@ -83,7 +83,7 @@ function apointmentUpdate()
             $apointmentId
         );
         //isset($_POST['accountRole']) ? header("Location: /Views/AdminAccountDetailsView.php") : header("Location: /Views/AccountDetailsView.php")  ;
-        //header("Location: /Views/AdminAccountDetailsView.php");
+        header("Location: /Views/AdminAccountDetailsView.php");
     }
 
     if (isset($_POST['delete'])) {
