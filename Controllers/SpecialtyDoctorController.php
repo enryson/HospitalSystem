@@ -15,7 +15,7 @@ function specialtyDoctorList()
     $rsSpecialtyDoctor = $specialtyDoctor->_result;
 }
 
-function getspecialtyDoctor($id)
+function getspecialtyDoctor()
 {
     
     global $rowSpecialtyDoctorGet;
@@ -24,7 +24,7 @@ function getspecialtyDoctor($id)
     $specialtyDoctor = new SpecialtyDoctor();
 
     $specialtyDoctor->getSpecialtyDoctor('SELECT * FROM specialtyDoctor 
-            INNER JOIN specialty ON specialtyDoctor.specialtyId = specialty.specialtyId WHERE doctorCRM="'. $id .'"');
+            INNER JOIN specialty ON specialtyDoctor.specialtyId = specialty.specialtyId WHERE doctorCRM="'. $_SESSION['doctorCRM'] .'"');
 
     $rowSpecialtyDoctorGet = $specialtyDoctor->_row;
     $rsSpecialtyDoctorGet = $specialtyDoctor->_result;
@@ -55,7 +55,6 @@ function specialtyDoctorInsert()
     }
 
     if (isset($_POST['deleteSpecialty'])) {
-        
-        $specialtyDoctor->deleteSpecialtyDoctor($_POST['doctorCRM'],$_POST['specialtyId']);
+        $specialtyDoctor->deleteSpecialtyDoctor($_SESSION['doctorCRM'],$_POST['specialtyId']);
     }
 }

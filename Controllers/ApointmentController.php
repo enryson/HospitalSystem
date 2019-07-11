@@ -158,3 +158,20 @@ function apointmentUpdate()
         header("Location: /Views/DoctorSchedule.php");
     }
 }
+
+function adminApoitmentList()
+{
+    global $rowApointment;
+    global $rsApointment;
+
+    $apointment = new Apointment();
+
+    $apointment->getApointment("SELECT * FROM apointment 
+                                    inner join specialty on apointment.specialtyId = specialty.specialtyId 
+                                    inner join doctor on apointment.doctorCRM = doctor.doctorCRM 
+                                    inner join accounts on doctor.accountId = accounts.accountId 
+                                    ORDER BY apointment.apointmenDateTime DESC");
+
+    $rowApointment = $apointment->_row;
+    $rsApointment = $apointment->_result;
+}

@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_GET['id'])) {
     $accountId = $_GET['id'];
     if ($_SESSION['accountRole'] == 1) {
@@ -10,12 +9,16 @@ if (isset($_GET['id'])) {
         roleList();
         specialtyDoctorInsert();
         specialtyList();
+
+        while ($rowDoctor = mysqli_fetch_array($rsDoctor)) {
+            $_SESSION['doctorCRM'] = $rowDoctor['doctorCRM'];
+        }
+        getspecialtyDoctor();
     }
 } else {
     header("Location: /Views/Index.php");
 }
 //-------- Bypass Error Check -----///
-$rsSpecialtyDoctorGet = null;
 
 //-------- Check Account Role -----///
 if ($_SESSION['accountRole'] == 1) {
@@ -42,12 +45,15 @@ if ($_SESSION['accountRole'] == 1) {
     echo 'CRM :<br>';
 
     //-------- FORM LIST Specialitys -----///
-    echo '<form class="form-inline my-2 my-lg-0 mb-3" method="post">';
+
     echo '<input class="form-control" id="doctorCRM" type="text" name="doctorCRM" value="';
+
+    echo $_SESSION['doctorCRM'];
+    /*
     while ($rowDoctor = mysqli_fetch_array($rsDoctor)) {
         echo $rowDoctor['doctorCRM'];
         getspecialtyDoctor($rowDoctor['doctorCRM']);
-    }
+    };*/
     echo '" /><br>';
 
     //-------- Doctor Speciality -----///
@@ -59,24 +65,28 @@ if ($_SESSION['accountRole'] == 1) {
         while ($rowSpecialtyDoctorGet = mysqli_fetch_array($rsSpecialtyDoctorGet)) {
             echo "<tr>";
             //echo '<td>' . $rowSpecialtyDoctorGet['doctorCRM'] . '</td>';
-            echo '<td name="' . $rowSpecialtyDoctorGet['specialtyId'] . '" id="' . $rowSpecialtyDoctorGet['specialtyId'] . '">' . $rowSpecialtyDoctorGet['specialtyNome'] . '</td>';            
-            //echo '<td> <input class=" btn-sm btn btn-warning" type="submit" id="deleteSpecialty"  name="deleteSpecialty" value="Remover"> </td>';
+            echo '<td>' . $rowSpecialtyDoctorGet['specialtyNome'] . '</td>';
+            echo '<td><form  method="post">
+								<input type="hidden" name="specialtyId" value="' . $rowSpecialtyDoctorGet['specialtyId'] . '" />
+								<input class="btn btn-warning" id="deleteSpecialty" name="deleteSpecialty" type="submit" value="Delete" />
+							</form>
+						</td>';
             echo '</tr>';
         }
     }
     echo '</tbody>';
     echo '</table>';
-    echo '</form>';
 
     //-------- ADD Speciality To a DOCTOR -----///
     echo '<h5 class="mb-3">Especialidade</h5>';
     echo '<select class="form-control m-2" id="specialtyId" name="specialtyId">';
-    while ($rowSpecialtyDoctor = mysqli_fetch_array($rsSpecialtyDoctor)) {
-        echo '<option value="' . $rowSpecialtyDoctor['specialtyId'] . '">' . $rowSpecialtyDoctor['specialtyNome'] . '</option>';
+    while ($rowSpecialty = mysqli_fetch_array($rsSpecialty)) {
+        echo '<option value="' . $rowSpecialty['specialtyId'] . '">' . $rowSpecialty['specialtyNome'] . '</option>';
     }
     echo '</select>';
+
     echo '<input class="m-sm-2 btn btn-primary" id="addSpecialty" type="submit" name="addSpecialty" value="Cadastrar">';
-    echo '<input class=" btn btn-warning" type="submit" id="deleteSpecialty"  name="deleteSpecialty" value="Remover">';
+
     echo '</div>';
     echo '</div>';
 }

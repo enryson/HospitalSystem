@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['accountId'])) {
-	if ($_SESSION['accountRole'] == 1 || $_SESSION['accountRole'] == 2 || $_SESSION['accountRole'] == 3) {
+	if ($_SESSION['accountRole'] == 1) {
 		$accountId = $_SESSION['accountId'];
 		require_once("../Controllers/ApointmentController.php");
 		require_once("../Controllers/SpecialtyDoctorController.php");
@@ -16,12 +16,7 @@ if (isset($_SESSION['accountId'])) {
 		apointmentInsert();
 
 		apointmentUpdate();
-
-		while ($rowDoctor = mysqli_fetch_array($rsDoctor)) {
-			getspecialtyDoctor($rowDoctor['doctorCRM']);
-			$_SESSION['doctorCRM'] = $rowDoctor['doctorCRM'];
-			doctorApoitmentList($_SESSION['doctorCRM']);
-		}
+		adminApoitmentList();
 		
 	}
 } else {
@@ -35,44 +30,17 @@ include("Components/Nav.php");
 ?>
 <main role="main" class="container">
 	<div class="containter p-3">
-		<h1>Cadastrar Horários</h1>
+		<h1>Consultar Horários</h1>
 	</div>
 	<div class="container position-relative m-4">
 
-		<form class="form-inline my-2 my-lg-0 mb-3" method="post">
-			</label>
-			<label class="m-sm-2" for="lastName">Especialidade
-				<?php
-
-				if ($rsSpecialtyDoctorGet != null) {
-					echo '<select class="form-control m-2" id="specialtyId" name="specialtyId">';
-					while ($rowSpecialtyDoctorGet = mysqli_fetch_array($rsSpecialtyDoctorGet)) {
-						echo '<option value="' . $rowSpecialtyDoctorGet['specialtyId'] . '">' . $rowSpecialtyDoctorGet['specialtyNome'] . '</option>';
-					}
-				}
-				echo '</select>';
-
-				?>
-			</label>
-
-			<label class="m-sm-2" for="lastName">Data e Hora</label>
-			<div class="input-group date" id="datetimepicker1" name="apointmenDateTime" data-target-input="nearest">
-				<input type="text" class="form-control datetimepicker-input" id="apointmenDateTime" name="apointmenDateTime" data-target="#datetimepicker1" />
-				<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-					<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-				</div>
-			</div>
-
-
-			<input class="m-sm-2 btn btn-primary" id="addApoitment" type="submit" name="addApoitment" value="Cadastrar">
-		</form>
-
+		
 
 		<table class="table table-dark table-striped">
 			<thead>
 				<tr>
 					<td>ID Consulta</td>
-					<td>Cliente</td>
+					<td>Doutor</td>
 					<td>Status</td>
 					<td>Data e Hora</td>
 					<td>Especialidade</td>
@@ -83,12 +51,10 @@ include("Components/Nav.php");
 				<?php
 				while ($rowApointment = mysqli_fetch_array($rsApointment)) {
 					$apointmenStatus = $rowApointment['apointmenStatus'];
-					($apointmenStatus=0? $apointmenStatus = 'Ocupado' : $apointmenStatus = 'Livre' );
 					echo "<tr>";
 					echo "<td>" . $rowApointment['apointmentId'] . "</td>";
-					echo "<td>" . $rowApointment['accountId'] . "</td>";
-					//echo "<td>" . $rowApointment['apointmenStatus'] . "</td>";
-					echo "<td>" . $apointmenStatus . "</td>";
+					echo "<td>" . $rowApointment['accountNome'] . "</td>";
+					echo ($apointmenStatus == 1 ? '<td class="text-danger" >Ocupado</td>' : '<td class="text-success" >Livre</td>');
 					echo "<td>" . $rowApointment['apointmenDateTime'] . "</td>";
 					echo "<td>" . $rowApointment['specialtyNome'] . "</td>";
 					echo '<td>

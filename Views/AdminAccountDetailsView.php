@@ -46,7 +46,8 @@ if (isset($_SESSION['accountId'])) {
 						echo "<td>" . $rowAccount['accountCPF'] . "</td>";
 						echo "<td>" . $rowAccount['accountEmail'] . "</td>";
 						echo "<td>" . $rowAccount['roleName'] . "</td>";
-						echo "<td><a href=\"AccountDetailsView.php?id=$rowAccount[accountId]\">Edit</a></td>";
+						echo '<td><a class="btn btn-warning"';
+						echo "href=\"AccountDetailsView.php?id=$rowAccount[accountId]\">Edit</a></td>";
 						echo "</tr>";
 					}
 					?>

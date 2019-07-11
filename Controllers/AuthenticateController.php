@@ -44,5 +44,5 @@ if (isset($_SESSION['accountId'])) {
     }
 } else {
     // Redirect them to the login page
-    header("Location: /views/index.php");
+    header("Location: ../Views/Index.php");
 }
