@@ -31,7 +31,7 @@ function specialityApoitmentList()
                                     inner join specialty on apointment.specialtyId = specialty.specialtyId 
                                     inner join doctor on doctor.doctorCRM = apointment.doctorCRM 
                                     inner join accounts on doctor.accountId = accounts.accountId  
-                                    WHERE apointment.specialtyId='$specialtyId' ORDER BY apointment.apointmenDateTime DESC");
+                                    WHERE apointment.specialtyId='$specialtyId' AND apointmenStatus=0 ORDER BY apointment.apointmenDateTime DESC");
 
         $rowApointment = $apointment->_row;
         $rsApointment = $apointment->_result;
@@ -41,19 +41,19 @@ function specialityApoitmentList()
 
 function AccountApoitmentList($id)
 {
-    global $rowApointment;
-    global $rsApointment;
-
+    global $rowApointmentAccount;
+    global $rsApointmentAccount;
+    
     $apointment = new Apointment();
 
     $apointment->getApointment("SELECT * FROM apointment 
                                     inner join specialty on apointment.specialtyId = specialty.specialtyId
                                     inner join doctor on apointment.doctorCRM = doctor.doctorCRM
                                     inner join accounts on doctor.accountId = accounts.accountId
-                                    WHERE accountId='$id' ORDER BY apointment.apointmenDateTime DESC");
+                                    WHERE apointment.accountId='$id' ORDER BY apointment.apointmenDateTime DESC");
 
-    $rowApointment = $apointment->_row;
-    $rsApointment = $apointment->_result;
+    $rowApointmentAccount = $apointment->_row;
+    $rsApointmentAccount = $apointment->_result;
 }
 
 function apointmentInsert()
@@ -92,16 +92,15 @@ function apointmentInsert()
     }
 }
 
-function apointmentUpdate()
+function apointmentAccountUpdate()
 {
     $apointment = new Apointment();
 
 
     if (isset($_POST['update'])) {
-        $accountId =  $_POST['id'];
+        $accountId =  $_SESSION['accountId'];
         $doctorCRM = $_POST['doctorCRM'];
         $specialtyId = $_POST['specialtyId'];
-        $accountId = $_POST['accountId'];
         $apointmenStatus = 1;
         $apointmenDateTime = $_POST['apointmenDateTime'];
         $apointmentDetails = $_POST['apointmentDetails'];
@@ -116,7 +115,41 @@ function apointmentUpdate()
             $apointmentDetails,
             $apointmentId
         );
-        //isset($_POST['accountRole']) ? header("Location: /Views/AdminAccountDetailsView.php") : header("Location: /Views/AccountDetailsView.php")  ;
+        header("Location: /Views/AccountSchedule.php");
+    }
+
+    if (isset($_POST['remove'])) {
+        $apointmentId = $_POST['apointmentId'];
+
+        $apointment->disableApointment($apointmentId);
+        header("Location: /Views/AccountSchedule.php");
+    }
+}
+
+
+function apointmentUpdate()
+{
+    $apointment = new Apointment();
+
+
+    if (isset($_POST['update'])) {
+        $accountId =  $_SESSION['accountId'];
+        $doctorCRM = $_POST['doctorCRM'];
+        $specialtyId = $_POST['specialtyId'];
+        $apointmenStatus = 1;
+        $apointmenDateTime = $_POST['apointmenDateTime'];
+        $apointmentDetails = $_POST['apointmentDetails'];
+        $apointmentId = $_POST['apointmentId'];
+
+        $apointment->updateApointment(
+            $doctorCRM,
+            $specialtyId,
+            $accountId,
+            $apointmenStatus,
+            $apointmenDateTime,
+            $apointmentDetails,
+            $apointmentId
+        );
         header("Location: /Views/AccountSchedule.php");
     }
 

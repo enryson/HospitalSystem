@@ -50,12 +50,29 @@ class Apointment
             ';
             
         $database = new DatabaseConnection();
+        
         echo $query;
         $database->connection();
 
         $database->query($query);
     }
 
+
+    public function disableApointment($apointmentId)
+    {
+        $query = 'UPDATE apointment SET 
+            accountId = "0",
+            apointmenStatus ="0"
+            WHERE apointmentId= "' . $apointmentId . '"
+            ';
+            
+        $database = new DatabaseConnection();
+        
+        echo $query;
+        $database->connection();
+
+        $database->query($query);
+    }
 
 
     public function getApointment($query)
@@ -66,7 +83,6 @@ class Apointment
         $database->connection();
 
         $database->query($query);
-        
         $this->_row = @mysqli_num_rows($database->result);
 
         $this->_result = $database->result;
