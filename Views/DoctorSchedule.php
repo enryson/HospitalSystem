@@ -8,18 +8,12 @@ if (isset($_SESSION['accountId'])) {
 		require_once("../Controllers/SpecialtyDoctorController.php");
 		require_once("../Controllers/SpecialtyController.php");
 		require_once("../Controllers/DoctorController.php");
-
-		doctorList();
-
 		specialtyList();
 
 		apointmentInsert();
 
 		apointmentUpdate();
 
-		doctorApoitmentList($_SESSION['doctorCRM']);
-
-		getspecialtyDoctor($_SESSION['doctorCRM']);
 		
 	}
 } else {
@@ -79,7 +73,6 @@ include("Components/Nav.php");
 			</thead>
 			<tbody>
 				<?php
-				if($rsApointment =!null){
 				while ($rowApointment = mysqli_fetch_array($rsApointment)) {
 					$apointmenStatus = $rowApointment['apointmenStatus'];
 					($apointmenStatus=0? $apointmenStatus = 'Ocupado' : $apointmenStatus = 'Livre' );
@@ -97,7 +90,7 @@ include("Components/Nav.php");
 							</form>
 						</td>';
 					echo "</tr>";
-				}}
+				}
 				?>
 			</tbody>
 		</table>

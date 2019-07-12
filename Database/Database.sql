@@ -59,7 +59,7 @@ create table specialtyDoctor(
 
 ALTER TABLE specialtyDoctor ADD UNIQUE INDEX(doctorCRM, specialtyId);
 
-create table apointments(
+create table apointment(
 	doctorCRM int(8) references specialtyDoctor(doctorCRM),
     specialtyId int(8) references specialtyDoctor(specialtyId),
     accountId int(20) references account(accountId),
@@ -68,6 +68,6 @@ create table apointments(
     apointmentDetails varchar(140)
 );
 
-ALTER TABLE apointments ADD UNIQUE INDEX(doctorCRM, specialtyId,accountId,apointmenDateTime);
+ALTER TABLE apointment ADD UNIQUE INDEX(doctorCRM, specialtyId,accountId,apointmenDateTime);
 insert into accounts ( accountEmail, accountPassword, accountNome, accountCPF, accountTel, accountDate, accountRua, accountBairro, accountNumero, accountCidade, accountUF, accountCEP, accountComplemento, accountRole) values( 'enryson@gmail.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 'Enryson Oliveira Ferraz', '401.381.268-10', '11 95920-3074', '28/06/1989', 'Rua Cantigas de Saudade', 'Jardim AmÃ¡lia', '35', 'SÃ£o Paulo', 'SP', '05890-050', '', '1')
 
