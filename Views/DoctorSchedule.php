@@ -8,9 +8,15 @@ if (isset($_SESSION['accountId'])) {
 		require_once("../Controllers/SpecialtyDoctorController.php");
 		require_once("../Controllers/SpecialtyController.php");
 		require_once("../Controllers/DoctorController.php");
-		specialtyList();
+		
+		
+		getspecialtyDoctor();
+		
+
+		getspecialtyDoctor();
 
 		apointmentInsert();
+		doctorApoitmentList($_SESSION['doctorCRM']);
 
 		apointmentUpdate();
 
@@ -104,6 +110,7 @@ include("Components/Nav.php");
 	$(document).ready(function(e) {
 		$(function() {
 			$('#datetimepicker1').datetimepicker();
+			$('.datetimepicker-input').datetimepicker('defaultDate', new Date());
 		});
 	});
 
