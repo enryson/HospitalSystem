@@ -41,8 +41,8 @@
             } else {
                 echo '
                 <form class="form-inline my-2 my-lg-0" action="../Controllers/AuthenticateController.php" method="post">
-                    <input class="form-control m-sm-2 " placeholder="E-mail" id="email" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
-                    <input class="form-control m-sm-2 "  placeholder="Senha" id="password" type="password" name="password" />
+                    <input class="form-control m-sm-2 " placeholder="E-mail" id="email" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                    <input class="form-control m-sm-2 "  placeholder="Senha" id="password" type="password" name="password" required/>
                     <button class="btn btn-success m-sm-2 " type="submit" name="login" value="Login">Login</button>
                     <a class="btn btn-primary m-sm-2" href="../Views/AccountRegisterView.php">Cadastro <span class="sr-only">(current)</span></a>
                 </form>

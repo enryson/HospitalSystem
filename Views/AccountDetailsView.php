@@ -36,46 +36,46 @@ include("Components/Nav.php");
                         <div class="col-md-4">
                             <h4 class="mb-3">Dados Pessoais</h4>
                             <label for="Email :"></label> Email :<br>
-                            <input class="form-control" id="email" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?php echo $rowAccount['accountEmail'] ?>" />
+                            <input class="form-control" id="email" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required value="<?php echo $rowAccount['accountEmail'] ?>" />
                             <br>
                             Senha :<br>
                             <input class="form-control" id="password" type="password" name="password" />
                             <br>
                             Nome :<br>
-                            <input class="form-control" id="nome" type="text" name="nome" value="<?php echo $rowAccount['accountNome'] ?>" />
+                            <input class="form-control" id="nome" type="text" name="nome" required value="<?php echo $rowAccount['accountNome'] ?>" />
                             <br>
                             CPF :<br>
-                            <input class="form-control" id="cpf" type="text" name="cpf" value="<?php echo $rowAccount['accountCPF'] ?>" />
+                            <input class="form-control" id="cpf" type="text" name="cpf" required onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" value="<?php echo $rowAccount['accountCPF'] ?>" />
                             <br>
                             Tel :<br>
-                            <input class="form-control" id="tel" type="text" name="tel" value="<?php echo $rowAccount['accountTel'] ?>" />
+                            <input class="form-control" id="tel" type="text" name="tel" required onkeyup="mascara( this, mtel );" maxlength="15" value="<?php echo $rowAccount['accountTel'] ?>" />
                             <br>
                             Nascimento :<br>
-                            <input class="form-control" id="data" type="text" name="data" value="<?php echo $rowAccount['accountDate'] ?>" />
+                            <input class="form-control" id="data" type="text" name="data" required maxlength="10" value="<?php echo $rowAccount['accountDate'] ?>" />
                             <br>
                         </div>
                         <div class="col-md-4">
                             <h4 class="mb-3">Endereço</h4>
                             CEP :<br>
-                            <input class="form-control" id="cep" type="text" name="cep" onblur="pesquisacep(this.value);" value="<?php echo $rowAccount['accountCEP'] ?>" />
+                            <input class="form-control" id="cep" type="text" name="cep" required onblur="pesquisacep(this.value);" value="<?php echo $rowAccount['accountCEP'] ?>" />
                             <br>
                             Rua :<br>
-                            <input class="form-control" id="rua" type="text" name="rua" value="<?php echo $rowAccount['accountRua'] ?>" />
+                            <input class="form-control" id="rua" type="text" name="rua" required value="<?php echo $rowAccount['accountRua'] ?>" />
                             <br>
                             Numero :<br>
-                            <input class="form-control" id="numero" type="text" name="numero" value="<?php echo $rowAccount['accountNumero'] ?>" />
+                            <input class="form-control" id="numero" type="text" name="numero" required value="<?php echo $rowAccount['accountNumero'] ?>" />
                             <br>
                             Bairro :<br>
-                            <input class="form-control" id="bairro" type="text" name="bairro" value="<?php echo $rowAccount['accountBairro'] ?>" />
+                            <input class="form-control" id="bairro" type="text" name="bairro" required value="<?php echo $rowAccount['accountBairro'] ?>" />
                             <br>
                             Cidade :<br>
-                            <input class="form-control" id="cidade" type="text" name="cidade" value="<?php echo $rowAccount['accountCidade'] ?>" />
+                            <input class="form-control" id="cidade" type="text" name="cidade" required value="<?php echo $rowAccount['accountCidade'] ?>" />
                             <br>
                             UF :<br>
-                            <input class="form-control" id="uf" type="text" name="uf" value="<?php echo $rowAccount['accountUF'] ?>" />
+                            <input class="form-control" id="uf" type="text" name="uf" required value="<?php echo $rowAccount['accountUF'] ?>" />
                             <br>
                             Complemento :<br>
-                            <input class="form-control" id="complemento" type="text" name="complemento" value="<?php echo $rowAccount['accountComplemento'] ?>" />
+                            <input class="form-control" id="complemento" type="text" required name="complemento" value="<?php echo $rowAccount['accountComplemento'] ?>" />
                             <br>
                             <br>
                             <?php 
@@ -108,4 +108,13 @@ include("Components/Nav.php");
         });
     })();
 </script>
+
+<script src="JS/MascaraCPF.js"></script>
 <script src="JS/ViaCEP.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#data').mask('00/00/0000');
+    $('#tel').mask('(00) 00000-0000');
+    $('#cep').mask('00000-000');
+  });
+</script>
