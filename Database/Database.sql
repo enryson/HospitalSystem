@@ -67,7 +67,7 @@ create table apointment(
     apointmenStatus int(1) not null,
     apointmenDateTime Datetime not null,
     apointmentDetails varchar(140),
-    primary key (apointmenId)
+    primary key (apointmentId)
 );
 
 ALTER TABLE apointment ADD UNIQUE INDEX(doctorCRM, specialtyId,accountId,apointmenDateTime);
