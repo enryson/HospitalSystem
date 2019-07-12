@@ -15,7 +15,7 @@
                 </li>
 
             </ul>
-            
+
             <?php
             if (isset($_SESSION['accountId'])) {
                 echo '
@@ -53,3 +53,14 @@
         </div>
     </div>
 </nav>
+
+<?php
+if (isset($_SESSION["error"])) {
+    $error = $_SESSION["error"];
+    alert($error);
+}
+
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+?>
