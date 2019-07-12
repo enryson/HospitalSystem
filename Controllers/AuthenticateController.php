@@ -7,7 +7,6 @@ if (isset($_POST)) {
     if (isset($_POST['email']) && isset($_POST['password'])) {
         if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             accountLogin($_POST['email'],$_POST['password']);
-            header("Location: /Views/Index.php");
         }
         header("Location: /Views/Index.php");
     }
