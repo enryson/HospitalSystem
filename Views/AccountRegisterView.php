@@ -58,7 +58,7 @@ include("Components/Nav.php");
             <input class="form-control" id="uf" type="text" name="uf" required/>
             <br>
             Complemento :<br>
-            <input class="form-control" id="complemento" type="text" name="complemento" required/>
+            <input class="form-control" id="complemento" type="text" name="complemento"/>
             <br>
             <br>
           </div>
