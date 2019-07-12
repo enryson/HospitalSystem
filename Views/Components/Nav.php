@@ -56,7 +56,8 @@
 
 <?php
 if (isset($_SESSION["error"])) {
-    $error = $_SESSION["error"];
+    $error = $_SESSION["error"];    
+    $_SESSION["error"] = null;
     alert($error);
 }
 
