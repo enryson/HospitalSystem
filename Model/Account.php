@@ -96,11 +96,11 @@ class Account
         $accountUF,
         $accountComplemento,
         $accountRole
-    ) {
-
+    ) {       
+        
         $query = 'UPDATE accounts SET 
             accountEmail = "' . $accountEmail . '",
-            accountPassword = (select password("' . $accountPassword . '")),
+            ' . ($accountPassword == ""? '' : 'accountPassword = (select password("' . $accountPassword . '")),') . '
             accountNome = "' . $accountNome . '",
             accountCPF = "' . $accountCPF . '",
             accountTel ="' . $accountTel . '",
