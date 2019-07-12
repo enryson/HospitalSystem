@@ -136,7 +136,6 @@ class Account
         $database->connection();
 
         $database->query($query);
-
         $this->_row = @mysqli_num_rows($database->result);
 
         $this->_result = $database->result;
