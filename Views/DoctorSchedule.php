@@ -111,6 +111,7 @@ include("Components/Nav.php");
 		$(function() {
 			$('#datetimepicker1').datetimepicker();
 			$('.datetimepicker-input').datetimepicker('defaultDate', new Date());
+			$('#datetimepicker1').datetimepicker({ minDate: new Date() });
 		});
 	});
 
