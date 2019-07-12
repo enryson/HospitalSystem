@@ -75,7 +75,7 @@ include("Components/Nav.php");
                             <input class="form-control" id="uf" type="text" name="uf" required value="<?php echo $rowAccount['accountUF'] ?>" />
                             <br>
                             Complemento :<br>
-                            <input class="form-control" id="complemento" type="text" required name="complemento" value="<?php echo $rowAccount['accountComplemento'] ?>" />
+                            <input class="form-control" id="complemento" type="text" name="complemento" value="<?php echo $rowAccount['accountComplemento'] ?>" />
                             <br>
                             <br>
                             <?php 
