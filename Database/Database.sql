@@ -69,5 +69,5 @@ create table apointments(
 );
 
 ALTER TABLE apointments ADD UNIQUE INDEX(doctorCRM, specialtyId,accountId,apointmenDateTime);
-insert into accounts ( accountEmail, accountPassword, accountNome, accountCPF, accountTel, accountDate, accountRua, accountBairro, accountNumero, accountCidade, accountUF, accountCEP, accountComplemento, accountRole) values( 'enryson@gmail.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 'Enryson Oliveira Ferraz', '401.381.268-10', '11 95920-3074', '28/06/1989', 'Rua Cantigas de Saudade', 'Jardim AmÃ¡lia', '35', 'SÃ£o Paulo', 'SP', '05890-050', '', '1')
+insert into accounts ( accountEmail, accountPassword, accountNome, accountCPF, accountTel, accountDate, accountRua, accountBairro, accountNumero, accountCidade, accountUF, accountCEP, accountComplemento, accountRole) values( 'admin@admin.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 'ADM MASTER', '0000', '0000', '00000', '00', '0', '0', '0', '0', '0', '', '1')
 
