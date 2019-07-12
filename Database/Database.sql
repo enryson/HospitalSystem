@@ -60,7 +60,7 @@ create table specialtyDoctor(
 ALTER TABLE specialtyDoctor ADD UNIQUE INDEX(doctorCRM, specialtyId);
 
 create table apointment(
-    apointmenId int(30) NOT NULL AUTO_INCREMENT,
+    apointmentId int(30) NOT NULL AUTO_INCREMENT,
 	doctorCRM int(8) references specialtyDoctor(doctorCRM),
     specialtyId int(8) references specialtyDoctor(specialtyId),
     accountId int(20) references account(accountId),
